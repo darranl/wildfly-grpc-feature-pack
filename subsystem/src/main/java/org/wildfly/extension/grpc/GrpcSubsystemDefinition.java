@@ -75,15 +75,6 @@ public class GrpcSubsystemDefinition extends PersistentResourceDefinition {
             .setValidator(new IntRangeValidator(0, false, true))
             .build();
 
-    static final SimpleAttributeDefinition GRPC_KEY_MANAGER_NAME = new SimpleAttributeDefinitionBuilder(
-            "key-manager-name", ModelType.STRING)
-            .setAllowExpression(true)
-            .setCapabilityReference(Capabilities.KEY_MANAGER_CAPABILITY)
-            .setRequired(false)
-            .setRestartAllServices()
-            .setValidator(new ModelTypeValidator(ModelType.STRING, false))
-            .build();
-
     static final SimpleAttributeDefinition GRPC_MAX_CONCURRENT_CALLS_PER_CONNECTION = new SimpleAttributeDefinitionBuilder(
             "max-concurrent-calls-per-connection", ModelType.INT)
             .setAllowExpression(true)
@@ -218,22 +209,12 @@ public class GrpcSubsystemDefinition extends PersistentResourceDefinition {
             .setValidator(new ModelTypeValidator(ModelType.BOOLEAN, true))
             .build();
 
-    static final SimpleAttributeDefinition GRPC_TRUST_MANAGER_NAME = new SimpleAttributeDefinitionBuilder(
-            "trust-manager-name", ModelType.STRING)
-            .setAllowExpression(true)
-            .setCapabilityReference(Capabilities.TRUST_MANAGER_CAPABILITY)
-            .setRequired(false)
-            .setRestartAllServices()
-            .setValidator(new ModelTypeValidator(ModelType.STRING, true))
-            .build();
-
     static final List<AttributeDefinition> ATTRIBUTES = List.of(
             GRPC_FLOW_CONTROL_WINDOW,
             GRPC_HANDSHAKE_TIMEOUT,
             GRPC_INITIAL_FLOW_CONTROL_WINDOW,
             GRPC_KEEP_ALIVE_TIME,
             GRPC_KEEP_ALIVE_TIMEOUT,
-            GRPC_KEY_MANAGER_NAME,
             GRPC_MAX_CONCURRENT_CALLS_PER_CONNECTION,
             GRPC_MAX_CONNECTION_AGE,
             GRPC_MAX_CONNECTION_AGE_GRACE,
@@ -250,7 +231,7 @@ public class GrpcSubsystemDefinition extends PersistentResourceDefinition {
             GRPC_SHUTDOWN_TIMEOUT,
             GRPC_SSL_CONTEXT_NAME,
             GRPC_START_TLS,
-            GRPC_TRUST_MANAGER_NAME);
+            );
 
     static RuntimeCapability<Void> SERVER_CAPABILITY = RuntimeCapability.Builder.of("org.wildfly.grpc.server", false)
             .setServiceType(GrpcServerService.class)

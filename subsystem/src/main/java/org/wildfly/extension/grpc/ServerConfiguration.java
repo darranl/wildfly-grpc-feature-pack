@@ -30,8 +30,6 @@ import javax.net.ssl.TrustManager;
 class ServerConfiguration {
 
     private final String hostName;
-    private Supplier<TrustManager> trustManager;
-    private Supplier<KeyManager> keyManager;
     private Supplier<SSLContext> sslContext;
     private long shutdownTimeout;
     private String protocolProvider;
@@ -45,24 +43,6 @@ class ServerConfiguration {
 
     String getHostName() {
         return hostName;
-    }
-
-    Supplier<TrustManager> getTrustManager() {
-        return trustManager;
-    }
-
-    ServerConfiguration setTrustManager(final Supplier<TrustManager> trustManager) {
-        this.trustManager = trustManager;
-        return this;
-    }
-
-    Supplier<KeyManager> getKeyManager() {
-        return keyManager;
-    }
-
-    ServerConfiguration setKeyManager(final Supplier<KeyManager> keyManager) {
-        this.keyManager = keyManager;
-        return this;
     }
 
     Supplier<SSLContext> getSslContext() {

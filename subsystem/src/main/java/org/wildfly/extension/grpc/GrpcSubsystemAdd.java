@@ -19,9 +19,7 @@ import java.net.InetSocketAddress;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
-import javax.net.ssl.KeyManager;
 import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
 
 import org.jboss.as.controller.AbstractBoottimeAddStepHandler;
 import org.jboss.as.controller.AttributeDefinition;
@@ -152,21 +150,6 @@ class GrpcSubsystemAdd extends AbstractBoottimeAddStepHandler {
                         .asInt())
                 .setStartTls(GrpcSubsystemDefinition.GRPC_START_TLS.resolveModelAttribute(context, model)
                         .asBoolean());
-
-        if (isDefined(GrpcSubsystemDefinition.GRPC_TRUST_MANAGER_NAME, model)) {
-            configuration.setTrustManager(builder.requiresCapability(Capabilities.TRUST_MANAGER_CAPABILITY, TrustManager.class,
-                    GrpcSubsystemDefinition.GRPC_TRUST_MANAGER_NAME.resolveModelAttribute(context, model)
-                            .asString()));
-        }
-
-        if (isDefined(GrpcSubsystemDefinition.GRPC_KEY_MANAGER_NAME, model)) {
-            final String name = GrpcSubsystemDefinition.GRPC_KEY_MANAGER_NAME.resolveModelAttribute(context, model)
-                    .asString();
-            if (!name.isBlank()) {
-                configuration.setKeyManager(builder.requiresCapability(Capabilities.KEY_MANAGER_CAPABILITY, KeyManager.class,
-                        name));
-            }
-        }
 
         if (isDefined(GrpcSubsystemDefinition.GRPC_SSL_CONTEXT_NAME, model)) {
             configuration.setSslContext(builder.requiresCapability(Capabilities.SSL_CONTEXT_CAPABILITY, SSLContext.class,

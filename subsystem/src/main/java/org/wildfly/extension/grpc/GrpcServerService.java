@@ -86,11 +86,9 @@ class GrpcServerService implements Service, WildFlyGrpcDeploymentRegistry {
         context.asynchronous();
         executorService.get().submit(() -> {
             try {
-                if (configuration.getKeyManager() != null) {
-                    final SSLContext sslContext = configuration.getSslContext() == null ? null
-                            : configuration.getSslContext()
-                                    .get();
-                    serverBuilder.sslContext(createSslContext(sslContext));
+                final Supplier<SSLContext> sslContext = configuration.getSslContext();
+                if (sslContext != null) {
+                    serverBuilder.sslContext(createSslContext(sslContext.get()));
                 }
                 server = serverBuilder.build().start();
                 GrpcLogger.LOGGER.serverListening(configuration.getHostName(), server.getPort());
