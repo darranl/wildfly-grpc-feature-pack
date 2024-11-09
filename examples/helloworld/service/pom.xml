@@ -78,7 +78,7 @@
                             <goal>compile-custom</goal>
                         </goals>
                         <configuration>
-                            <protoSourceRoot>${project.build.directory}/proto</protoSourceRoot>
+                            <protoSourceRoot>${project.basedir}/proto</protoSourceRoot>
                         </configuration>
                     </execution>
                 </executions>
